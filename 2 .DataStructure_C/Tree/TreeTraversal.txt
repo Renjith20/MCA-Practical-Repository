@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+struct node
+{
+ int item;
+ struct node *left;
+ struct node *right;
+};
+
+void inOrderTraversal(struct node *root)
+{
+ if(root == NULL)
+ return;
+ inOrderTraversal(root -> left);
+ printf(" %d -> " , root -> item);
+ inOrderTraversal( root -> right);
+}
+
+void preorderTraversal(struct node *root)
+{
+ if(root == NULL)
+ return;
+ printf("%d ->" , root -> item);
+ preorderTraversal(root -> left);
+ preorderTraversal(root -> right);
+}
+
+void postOrderTraversal(struct node *root)
+{
+ if( root == NULL)
+ return;
+ postOrderTraversal(root -> left);
+ postOrderTraversal(root -> right);
+ printf(" %d ->" , root -> item);
+}
+
+struct node *CreateNode(value)
+{
+ struct node *newnode = malloc(sizeof(struct node));
+ newnode -> item = value;
+ newnode -> left = NULL;
+ newnode -> right = NULL;
+ return newnode;
+}
+struct node * insertLeft(struct node *root , int value)
+{
+ root -> left = CreateNode(value);
+ return root -> left;
+}
+
+struct node *insertRight(struct node *root , int value)
+{
+ root ->right = CreateNode(value);
+ return root -> right ;
+}
+
+int main()
+{
+ struct node *root = CreateNode(1);
+ clrscr();
+ insertLeft( root ,2);
+ insertRight(root , 3);
+ insertLeft(root -> left , 4);
+ insertRight(root -> right , 5);
+ printf("\n Inorder traversal:");
+ inOrderTraversal(root);
+ printf("\n Preorder traversal :");
+ preorderTraversal(root);
+ printf("\n Postorder Traversal :");
+ postOrderTraversal(root);
+ getch();
+}
